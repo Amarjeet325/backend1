@@ -24,7 +24,7 @@ return token;
 exports.signup = async (req, res) => {
 
    try {
-        const { username, email, password } = req.body;
+        const { username, email, password, bio, avatar } = req.body;
 
         if (!username || !email || !password) 
         return res.status(400).json({ message: 'Missing fields' });
@@ -36,7 +36,7 @@ exports.signup = async (req, res) => {
 
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(password, salt);
-      user = new User({ username, email, password: hashed });
+      user = new User({ username, email, password: hashed, bio, avatar });
       await user.save();
 
 
@@ -47,7 +47,9 @@ exports.signup = async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        bio: user.bio,
+        avatar: user.avatar
       },
         token
     });
@@ -82,7 +84,9 @@ exports.login = async (req, res) => {
       user: { 
         id: user._id,
          username: user.username, 
-         email: user.email
+         email: user.email,
+         bio: user.bio,
+         avatar: user.avatar
          },
       token
     });

@@ -1,5 +1,5 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/db');
@@ -7,12 +7,12 @@ const connectDB = require('./config/db');
 
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
+
 app.use(cors({ origin: true, credentials: true }));
 
 
 // database connection 
-connectDB(process.env.MONGO_URI);
+connectDB();
 const PORT = process.env.PORT || 3008;
 
 // routes paths

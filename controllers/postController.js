@@ -41,4 +41,16 @@ exports.likePost = async (req, res) => {
    } 
 };
 
+exports.getFeed = async (req, res) => {
+  try {
+     const posts = await Post.find()
+      .populate('author', 'username avatar')
+      .populate('comments.author', 'username avatar')
+      .sort({ createdAt: -1 });
 
+     res.json({ posts });
+   } catch (err) {
+     console.error(err);
+     res.status(500).json({ message: ' internal Server error' });
+   }
+};
