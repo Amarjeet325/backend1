@@ -28,6 +28,8 @@ app.use('/api/user', require('./routes/user'));
 app.use('/api/post', require('./routes/post'));
 app.use('/api/comment', require('./routes/comment'));
 
+app.use("/api/v1", require("./routes/uploadRoutes"));
+
 // error handler middleware
 app.use( require('./middleware/errorHandler') );  
 
